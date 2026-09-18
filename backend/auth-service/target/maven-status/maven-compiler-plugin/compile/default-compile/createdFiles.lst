@@ -1,0 +1,4 @@
+com/sweetcolors/authservice/AuthServiceApplication.class
+com/sweetcolors/authservice/entity/User$Role.class
+com/sweetcolors/authservice/entity/User.class
+com/sweetcolors/authservice/entity/RefreshToken.class
