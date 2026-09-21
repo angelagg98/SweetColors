@@ -1,3 +1,10 @@
-C:\Users\Pc\OneDrive\Documentos\SENA_TODO\SweetColors\backend\auth-service\src\main\java\com\sweetcolors\authservice\AuthServiceApplication.java
-C:\Users\Pc\OneDrive\Documentos\SENA_TODO\SweetColors\backend\auth-service\src\main\java\com\sweetcolors\authservice\entity\RefreshToken.java
-C:\Users\Pc\OneDrive\Documentos\SENA_TODO\SweetColors\backend\auth-service\src\main\java\com\sweetcolors\authservice\entity\User.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/AuthServiceApplication.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/config/SecurityBeansConfig.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/controller/AuthController.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/dto/RegisterRequest.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/dto/UserResponse.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/entity/RefreshToken.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/entity/User.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/repository/RefreshTokenRepository.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/repository/UserRepository.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/service/AuthService.java

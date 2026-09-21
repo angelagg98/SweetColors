@@ -1,4 +1,13 @@
-com\sweetcolors\authservice\AuthServiceApplication.class
-com\sweetcolors\authservice\entity\User.class
-com\sweetcolors\authservice\entity\RefreshToken.class
-com\sweetcolors\authservice\entity\User$Role.class
+com/sweetcolors/authservice/dto/RegisterRequest.class
+com/sweetcolors/authservice/AuthServiceApplication.class
+com/sweetcolors/authservice/entity/User$Role.class
+com/sweetcolors/authservice/entity/User$UserBuilder.class
+com/sweetcolors/authservice/controller/AuthController.class
+com/sweetcolors/authservice/service/AuthService.class
+com/sweetcolors/authservice/dto/UserResponse.class
+com/sweetcolors/authservice/config/SecurityBeansConfig.class
+com/sweetcolors/authservice/entity/RefreshToken$RefreshTokenBuilder.class
+com/sweetcolors/authservice/entity/RefreshToken.class
+com/sweetcolors/authservice/repository/UserRepository.class
+com/sweetcolors/authservice/repository/RefreshTokenRepository.class
+com/sweetcolors/authservice/entity/User.class
