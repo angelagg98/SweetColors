@@ -21,15 +21,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors(cors -> cors.disable())  // ← AGREGA ESTA LÍNEA
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // El catalogo de productos debe verse SIN necesidad de login
-                // (recuerda el requisito original: "cuando el cliente ingrese,
-                // debe ver el catalogo" -- eso es publico, cualquiera puede mirar).
-                                .requestMatchers(HttpMethod.GET, "/api/catalog/products/**").permitAll()
-                // Pero crear, editar o borrar productos SI requiere estar
-                // autenticado (idealmente solo ADMIN, eso lo afinamos despues).
+                .requestMatchers(HttpMethod.GET, "/api/catalog/products/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

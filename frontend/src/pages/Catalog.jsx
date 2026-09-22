@@ -8,26 +8,26 @@ export default function Catalog() {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const url = category
+          ? `${CATALOG_API}/products?category=${category}`
+          : `${CATALOG_API}/products`;
+        const response = await api.get(url);
+        setProducts(response.data);
+        setError("");
+      } catch {
+        setError(
+          "No se pudo conectar con el servicio de catálogo. ¿Está encendido el puerto 8082?",
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProducts();
   }, [category]);
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const url = category
-        ? `${CATALOG_API}/products?category=${category}`
-        : `${CATALOG_API}/products`;
-      const response = await api.get(url);
-      setProducts(response.data);
-      setError("");
-    } catch (err) {
-      setError(
-        "No se pudo conectar con el servicio de catálogo. ¿Está encendido el puerto 8082?",
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="max-w-6xl mx-auto py-6">
