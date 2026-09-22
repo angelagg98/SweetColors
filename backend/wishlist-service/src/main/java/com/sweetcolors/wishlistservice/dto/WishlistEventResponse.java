@@ -6,15 +6,16 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// DTO DE SALIDA para los eventos (GET /events → lo consume history-service).
 @Data
 @AllArgsConstructor
 public class WishlistEventResponse {
 
-    private Long id;
+    private Long id;                        // id del evento EN LA WISHLIST (será "sourceId" en history).
     private Long userId;
     private Long productId;
     private String productName;
-    private String eventType;
+    private String eventType;               // Se expone como String ("ADDED") y no como enum.
     private LocalDateTime createdAt;
 
     public static WishlistEventResponse fromEntity(WishlistEvent event) {
@@ -23,7 +24,7 @@ public class WishlistEventResponse {
                 event.getUserId(),
                 event.getProductId(),
                 event.getProductName(),
-                event.getEventType().name(),
+                event.getEventType().name(),  // .name() → convierte el enum a su texto.
                 event.getCreatedAt()
         );
     }
