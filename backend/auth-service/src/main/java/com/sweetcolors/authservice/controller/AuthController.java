@@ -62,4 +62,70 @@ public class AuthController {
         // El body de la respuesta NUNCA incluye los tokens -- viajan solo en las cookies.
         return ResponseEntity.ok(result.user());
     }
+        @PostMapping("/refresh")
+    public ResponseEntity<Void> refresh(
+            // @CookieValue lee el valor directo de una cookie de la peticion.
+            // required = false evita que Spring lance error si la cookie no viene,
+            // asi podemos manejar ese caso nosotros mismos con un mensaje claro.
+            @CookieValue(name = "refresh_token", required = false) String rawRefreshToken,
+            HttpServletResponse response
+    ) {
+        AuthService.RefreshResult result = authService.refresh(rawRefreshToken);
+
+        // Igual que en login(): mandamos el nuevo access token en su cookie.
+        ResponseCookie accessCookie = ResponseCookie.from("access_token", result.newAccessToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(15 * 60)
+                .build();
+
+        // Y el nuevo refresh token (rotado) en la suya.
+        ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", result.newRawRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/api/auth/refresh")
+                .maxAge(7 * 24 * 60 * 60)
+                .build();
+
+        response.addHeader("Set-Cookie", accessCookie.toString());
+        response.addHeader("Set-Cookie", refreshCookie.toString());
+
+        // No necesitamos devolver nada en el body -- el frontend ya tiene
+        // las cookies nuevas, con eso le alcanza.
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(
+            @CookieValue(name = "refresh_token", required = false) String rawRefreshToken,
+            HttpServletResponse response
+    ) {
+        authService.logout(rawRefreshToken);
+
+        // "Borramos" las cookies mandando una version vacia con maxAge=0 --
+        // eso le dice al navegador que las elimine inmediatamente.
+        ResponseCookie clearedAccessCookie = ResponseCookie.from("access_token", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        ResponseCookie clearedRefreshCookie = ResponseCookie.from("refresh_token", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/api/auth/refresh")
+                .maxAge(0)
+                .build();
+
+        response.addHeader("Set-Cookie", clearedAccessCookie.toString());
+        response.addHeader("Set-Cookie", clearedRefreshCookie.toString());
+
+        return ResponseEntity.noContent().build();
+    }
 }

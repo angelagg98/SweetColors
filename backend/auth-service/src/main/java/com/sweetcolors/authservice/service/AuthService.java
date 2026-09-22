@@ -91,4 +91,68 @@ public class AuthService {
 
         return new LoginResult(UserResponse.fromEntity(user), accessToken, rawRefreshToken);
     }
+
+    // Resultado de renovar el access token: el nuevo access token y el nuevo
+    // refresh token (lo "rotamos" -- ver explicacion abajo).
+    public record RefreshResult(String newAccessToken, String newRawRefreshToken) {}
+
+    public RefreshResult refresh(String rawRefreshToken) {
+        if (rawRefreshToken == null) {
+            throw new IllegalArgumentException("No se encontro el refresh token");
+        }
+
+        // Hasheamos el token que llego para poder buscarlo en la BD
+        // (recordemos: nunca guardamos el token real, solo su hash).
+        String hash = tokenHasher.hash(rawRefreshToken);
+
+        RefreshToken storedToken = refreshTokenRepository.findByTokenHash(hash)
+                .orElseThrow(() -> new IllegalArgumentException("Refresh token invalido"));
+
+        // Verificamos que no este revocado (por ejemplo, si el usuario ya hizo logout)
+        // ni vencido (paso mas de 7 dias desde que se genero).
+        if (storedToken.getRevoked() || storedToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("El refresh token ya no es valido, inicia sesion de nuevo");
+        }
+
+        User user = storedToken.getUser();
+
+        // ROTACION de refresh token: en vez de reusar el mismo, generamos uno nuevo
+        // y revocamos el viejo. Esto es una buena practica de seguridad -- si alguien
+        // roba un refresh token y lo usa, el usuario legitimo al usar el suyo (ya viejo)
+        // detectaria el problema porque el sistema lo rechazaria.
+        storedToken.setRevoked(true);
+        refreshTokenRepository.save(storedToken);
+
+        String newRawRefreshToken = UUID.randomUUID().toString();
+        RefreshToken newRefreshTokenEntity = RefreshToken.builder()
+                .tokenHash(tokenHasher.hash(newRawRefreshToken))
+                .user(user)
+                .expiresAt(LocalDateTime.now().plusSeconds(refreshTokenExpirationMs / 1000))
+                .revoked(false)
+                .build();
+        refreshTokenRepository.save(newRefreshTokenEntity);
+
+        String newAccessToken = jwtService.generateAccessToken(
+                user.getId(), user.getEmail(), user.getRole().name()
+        );
+
+        return new RefreshResult(newAccessToken, newRawRefreshToken);
+    }
+
+    public void logout(String rawRefreshToken) {
+        if (rawRefreshToken == null) {
+            // Si no hay cookie, no hay nada que revocar -- no es un error grave,
+            // simplemente no hacemos nada.
+            return;
+        }
+
+        String hash = tokenHasher.hash(rawRefreshToken);
+
+        // Buscamos el token; si existe, lo marcamos como revocado para que
+        // no pueda usarse nunca mas, ni siquiera si alguien lo intercepto antes.
+        refreshTokenRepository.findByTokenHash(hash).ifPresent(token -> {
+            token.setRevoked(true);
+            refreshTokenRepository.save(token);
+        });
+    }
 }

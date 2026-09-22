@@ -10,6 +10,7 @@ com/sweetcolors/authservice/dto/UserResponse.class
 com/sweetcolors/authservice/config/SecurityBeansConfig.class
 com/sweetcolors/authservice/entity/RefreshToken$RefreshTokenBuilder.class
 com/sweetcolors/authservice/config/SecurityConfig.class
+com/sweetcolors/authservice/service/AuthService$RefreshResult.class
 com/sweetcolors/authservice/security/JwtService.class
 com/sweetcolors/authservice/entity/RefreshToken.class
 com/sweetcolors/authservice/repository/UserRepository.class
