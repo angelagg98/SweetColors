@@ -24,3 +24,8 @@ jwt:
   secret: ${JWT_SECRET}
   access-token-expiration-ms: 900000
   refresh-token-expiration-ms: 604800000
+
+  # Controla si las cookies exigen HTTPS. En produccion SIEMPRE debe ser true;
+# en desarrollo local (sin HTTPS) lo ponemos en false via el .env.
+app:
+  cookie-secure: ${COOKIE_SECURE:true}

@@ -2,10 +2,15 @@
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/config/SecurityBeansConfig.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/config/SecurityConfig.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/controller/AuthController.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/controller/TestController.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/dto/LoginRequest.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/dto/RegisterRequest.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/dto/UserResponse.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/entity/RefreshToken.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/entity/User.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/repository/RefreshTokenRepository.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/repository/UserRepository.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/security/JwtAuthenticationFilter.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/security/JwtService.java
+/home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/security/TokenHasher.java
 /home/alejandro/Documentos/SENA_TODO/Desayunos/SweetColors/backend/auth-service/src/main/java/com/sweetcolors/authservice/service/AuthService.java
