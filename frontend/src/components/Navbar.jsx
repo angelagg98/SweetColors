@@ -18,19 +18,21 @@ export default function Navbar() {
           SweetColors
         </Link>
         <div className="flex items-center gap-6">
-          <Link
-            to="/"
-            className="hover:text-primary transition-colors font-medium"
-          >
-            Catálogo
-          </Link>
           {user && (
-            <Link
-              to="/wishlist"
-              className="hover:text-primary transition-colors font-medium"
-            >
-              Mi Wishlist
-            </Link>
+            <>
+              <Link
+                to="/"
+                className="hover:text-primary transition-colors font-medium"
+              >
+                Catálogo
+              </Link>
+              <Link
+                to="/wishlist"
+                className="hover:text-primary transition-colors font-medium"
+              >
+                Mi Wishlist
+              </Link>
+            </>
           )}
 
           {user ? (
