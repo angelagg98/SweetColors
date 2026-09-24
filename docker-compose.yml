@@ -63,6 +63,20 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       HISTORY_BASE_URL: http://history-service:8084
 
+  api-gateway:
+    build:
+      context: ./backend/api-gateway
+      dockerfile: Dockerfile
+    image: sweetcolors-api-gateway:latest
+    container_name: sweetcolors-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - catalog-service
+      - wishlist-service
+      - history-service
+
   frontend:
     build:
       context: ./frontend
@@ -74,12 +88,6 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      VITE_AUTH_API_URL: http://localhost:8081
-      VITE_CATALOG_API_URL: http://localhost:8082
-      VITE_WISHLIST_API_URL: http://localhost:8083
-      VITE_HISTORY_API_URL: http://localhost:8084
+      VITE_API_URL: http://localhost:8080
     depends_on:
-      - auth-service
-      - catalog-service
-      - wishlist-service
-      - history-service
+      - api-gateway
