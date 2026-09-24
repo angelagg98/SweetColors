@@ -33,7 +33,7 @@ export default function Home() {
     <div className="max-w-5xl mx-auto">
       {/* Presentación */}
       <section className="text-center py-12 md:py-16">
-        <h1 className="text-4xl md:text-6xl font-bold text-primary font-display">
+        <h1 className="text-4xl md:text-6xl font-bold font-display bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
           SweetColors
         </h1>
         <p className="mt-4 text-xl md:text-2xl font-medium">
@@ -48,13 +48,13 @@ export default function Home() {
         <div className="mt-8 flex justify-center gap-3">
           <Link
             to="/login"
-            className="bg-primary hover:bg-purple-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
+            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white px-6 py-2.5 rounded-lg font-medium transition-opacity"
           >
             Entrar
           </Link>
           <Link
             to="/register"
-            className="bg-white dark:bg-gray-800 text-primary hover:bg-purple-50 px-6 py-2.5 rounded-lg font-medium transition-colors"
+            className="bg-white dark:bg-gray-800 text-primary hover:bg-purple-50 dark:hover:bg-gray-700 px-6 py-2.5 rounded-lg font-medium transition-colors"
           >
             Registro
           </Link>

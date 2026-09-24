@@ -5,6 +5,21 @@
 @tailwind utilities;
 
 @layer base {
+  /* Paleta de día (valores RGB para poder usar opacidad en Tailwind) */
+  :root {
+    --color-primary: 139 92 246; /* Morado  #8B5CF6 */
+    --color-secondary: 234 220 200; /* Beige   #EADCC8 */
+    --color-accent: 59 130 246; /* Azul    #3B82F6 */
+    --color-success: 74 222 128; /* Verde   #4ADE80 */
+  }
+
+  /* Paleta de noche */
+  .dark {
+    --color-primary: 168 85 247; /* Morado  #A855F7 */
+    --color-accent: 59 130 246; /* Azul    #3B82F6 */
+    --color-success: 34 211 160; /* Verde   #22D3A0 */
+  }
+
   body {
     @apply font-body bg-secondary text-gray-900 dark:bg-dark-bg dark:text-white antialiased;
   }
