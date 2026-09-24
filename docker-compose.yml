@@ -46,6 +46,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       WISHLIST_BASE_URL: http://wishlist-service:8083
+      CATALOG_BASE_URL: http://catalog-service:8082
 
   history-service:
     build:
