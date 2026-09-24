@@ -1,7 +1,8 @@
-version: '3.8'
-
 services:
   auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
     image: sweetcolors-auth-service:latest
     container_name: sweetcolors-auth
     ports:
@@ -15,6 +16,9 @@ services:
       COOKIE_SECURE: "false"
 
   catalog-service:
+    build:
+      context: ./backend/catalog-service
+      dockerfile: Dockerfile
     image: sweetcolors-catalog-service:latest
     container_name: sweetcolors-catalog
     ports:
@@ -28,6 +32,9 @@ services:
       CATALOG_BASE_URL: http://catalog-service:8082
 
   wishlist-service:
+    build:
+      context: ./backend/wishlist-service
+      dockerfile: Dockerfile
     image: sweetcolors-wishlist-service:latest
     container_name: sweetcolors-wishlist
     ports:
@@ -41,6 +48,9 @@ services:
       WISHLIST_BASE_URL: http://wishlist-service:8083
 
   history-service:
+    build:
+      context: ./backend/history-service
+      dockerfile: Dockerfile
     image: sweetcolors-history-service:latest
     container_name: sweetcolors-history
     ports:
@@ -52,3 +62,24 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       HISTORY_BASE_URL: http://history-service:8084
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sweetcolors-frontend
+    ports:
+      - "5500:5500"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_AUTH_API_URL: http://localhost:8081
+      VITE_CATALOG_API_URL: http://localhost:8082
+      VITE_WISHLIST_API_URL: http://localhost:8083
+      VITE_HISTORY_API_URL: http://localhost:8084
+    depends_on:
+      - auth-service
+      - catalog-service
+      - wishlist-service
+      - history-service

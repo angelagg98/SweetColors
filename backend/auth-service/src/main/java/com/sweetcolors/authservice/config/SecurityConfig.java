@@ -22,16 +22,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                // Le decimos a Spring Security que ejecute NUESTRO filtro JWT
-                // ANTES del filtro estandar de usuario/contrasena (que en nuestro caso
-                // ni siquiera usamos, pero es el punto de referencia estandar en la cadena).
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+    .cors(cors -> {})
+    .csrf(csrf -> csrf.disable())
+    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated())
+    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
